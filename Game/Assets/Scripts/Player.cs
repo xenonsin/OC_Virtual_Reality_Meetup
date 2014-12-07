@@ -1,15 +1,42 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
-public class Player : MonoBehaviour {
+public class Player : Entity
+{
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public static Player Instance;
+
+    public override void OnEnable()
+    {
+        
+        base.OnEnable();
+    }
+
+    public override void OnDisable()
+    {
+        
+        base.OnDisable();
+    }
+
+    public void OnDestroy()
+    {
+        Instance = null;
+
+    }
+
+    public override void Awake()
+    {
+        Instance = this;
+
+        base.Awake();
+    }
+
+    public override void Update()
+    {
+        base.Update();
+    }
+
+
+
 }

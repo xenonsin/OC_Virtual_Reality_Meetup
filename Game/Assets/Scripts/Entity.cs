@@ -9,14 +9,22 @@ public abstract class Entity : MonoBehaviour
     public static event Action Healed;
     public static event Action Died;
 
-    public string Name { get; set; }
-    public float Health { get; set; }
-    public float MaxHealth { get; set; }
-    public float MinDamage{ get; set; }
-    public float MaxDamage { get; set; }
-    public float Speed { get; set; }
-    public int Team { get; set; }
-    public bool IsDead { get; set; }
+    [SerializeField] private string _name;
+    public string Name { get { return _name; } set { _name = value; } }
+    [SerializeField] private float _health;
+    public float Health { get { return _health; } set { _health = value; } }
+    [SerializeField] private float _maxHealth;
+    public float MaxHealth { get { return _maxHealth; } set { _maxHealth = value; } }
+    [SerializeField] private float _minDamage;
+    public float MinDamage{ get { return _minDamage; } set { _minDamage = value; } }
+    [SerializeField] private float _maxDamage;
+    public float MaxDamage { get { return _maxDamage; } set { _maxDamage = value; } }
+    [SerializeField] private float _maxSpeed;
+    public float MaxSpeed { get { return _maxSpeed; } set { _maxSpeed = value; } }
+    [SerializeField] private int _team;
+    public int Team { get { return _team; } set { _team = value; } }
+    [SerializeField]  private bool _isDead;
+    public bool IsDead { get { return _isDead; } set { _isDead = value; } }
 
 
     public virtual void OnEnable()

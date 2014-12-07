@@ -1,30 +1,33 @@
-﻿using UnityEngine;
+﻿using Pathfinding.RVO;
+using UnityEngine;
 using System.Collections;
 
 public class Warrior : Entity
 {
 
-    public string nameString;
-    public float maxhp = 1f;
-    public float speed = 1f;
-    public float minDamage = 1f;
-    public float maxDamage = 2f;
-    public int team = 1;
-
     private Animator _animator;
 
     public override void Awake()
     {
-        Name = nameString;
-        MaxHealth = maxhp;
-        MaxDamage = maxDamage;
-        MinDamage = minDamage;
-        Speed = speed;
-        Team = team;
+
 
         _animator = GetComponent<Animator>();
 
         base.Awake();
+    }
+
+    public override void OnEnable()
+    {
+        if(GameManager.Instance != null)
+            Died += GameManager.Instance.UpdateKillCount;
+        base.OnEnable();
+    }
+
+    public override void OnDisable()
+    {
+        if (GameManager.Instance != null)
+            Died -= GameManager.Instance.UpdateKillCount;
+        base.OnDisable();
     }
 
     public override void Hit(float damage)
@@ -40,6 +43,22 @@ public class Warrior : Entity
         if (_animator)
             _animator.SetBool("Dead", true);
 
+        var rvo = GetComponent<RVOController>();
+
+        if (rvo)
+            rvo.enabled = false;
+        gameObject.tag = "Dead";
         base.Death();
+    }
+
+    public void OnTriggerEnter(Collider co)
+    {
+        var ball = co.gameObject.GetComponent<Ball>();
+
+        if (ball != null)
+        {
+            Hit(1f);
+            Destroy(ball.gameObject);
+        }
     }
 }

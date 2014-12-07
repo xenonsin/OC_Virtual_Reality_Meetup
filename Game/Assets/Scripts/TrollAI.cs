@@ -20,7 +20,8 @@ public class TrollAI : MonoBehaviour
     {
         Idle,
         Following,
-        Attacking
+        Attacking,
+        Dead
     }
 
     private State currentState = State.Idle;
@@ -39,6 +40,9 @@ public class TrollAI : MonoBehaviour
 	void Update () {
         if (_trollAIPath && _troll && !_troll.IsDead)
 	        GetDistance();
+
+	    if (_troll.IsDead)
+	        currentState = State.Dead;
 
 	    switch (currentState)
 	    {
@@ -59,6 +63,14 @@ public class TrollAI : MonoBehaviour
                 _animator.SetBool("Is Attacking", true);
                 if (!IsCurrentlyAttacking)
 	                StartCoroutine(AttackDelay(attackDelay));
+	            break;
+	        }
+            case State.Dead:
+	        {
+	            _trollAIPath.canMove = false;
+	            var collider = GetComponent<Collider>();
+	            if (collider)
+	                collider.enabled = false;
 	            break;
 	        }
                 

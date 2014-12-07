@@ -8,7 +8,7 @@ public class TrollSpawner : MonoBehaviour {
 
     public bool canSpawn = true;
     public float spawnTimeRandom;
-    private float spawnTime = 0.1f;
+    public float spawnTime = 0.1f;
 
     private float spawnTimer;
 
