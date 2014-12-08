@@ -8,7 +8,7 @@ public class TrollAI : MonoBehaviour
     public float attackDelay = 1.0f;
     public float meleeRange = 3.0f;
     public float meleeAngle = 50.0f;
-
+    public AudioClip hits;
 
     private AIPath _trollAIPath;
     private Entity _troll;
@@ -129,6 +129,9 @@ public class TrollAI : MonoBehaviour
                     //Target is within the cone.
                     Debug.Log("Attack hit!");
                     DealDamage(hit);
+
+                    if (hits)
+                        audio.PlayOneShot(hits);
                 }
             }
             else

@@ -7,9 +7,12 @@ public class Warrior : Entity
 
     private Animator _animator;
 
+    public AudioClip growl;
+    
     public override void Awake()
     {
-
+        if (growl)
+            audio.PlayOneShot(growl, 0.3f);
 
         _animator = GetComponent<Animator>();
 
@@ -35,6 +38,8 @@ public class Warrior : Entity
         if (_animator)
             _animator.SetTrigger("Hit");
 
+        
+
         base.Hit(damage);
     }
 
@@ -49,6 +54,7 @@ public class Warrior : Entity
             rvo.enabled = false;
         gameObject.tag = "Dead";
         base.Death();
+        StartCoroutine(AutoDeath(10.0f));
     }
 
     public void OnTriggerEnter(Collider co)
@@ -60,5 +66,11 @@ public class Warrior : Entity
             Hit(1f);
             Destroy(ball.gameObject);
         }
+    }
+
+    IEnumerator AutoDeath(float f)
+    {
+        yield return new WaitForSeconds(f);
+        Destroy(gameObject);
     }
 }

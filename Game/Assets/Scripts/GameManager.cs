@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     private int _killCount = 0;
     private float _playerHP;
+    private bool isPlaying = true;
 
     void OnEnable()
     {
@@ -21,8 +22,10 @@ public class GameManager : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void Update ()
+	{
+	    if (Player.Instance.IsDead)
+            Application.LoadLevel(2);
 	}
 
     public void UpdateKillCount()
