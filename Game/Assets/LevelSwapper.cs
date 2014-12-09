@@ -12,11 +12,11 @@ public class LevelSwapper : MonoBehaviour {
 	void Update () {
 	    if (Input.GetButtonDown("space"))
 	    {
-	        Application.LoadLevel(1);
+	        Application.LoadLevel("instructions");
 	    }
 	    if (Input.GetButtonDown("b"))
 	    {
-	        Application.LoadLevel(0);
+	        Application.LoadLevel("main_menu");
 	    }
 
 	}

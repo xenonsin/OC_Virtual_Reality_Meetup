@@ -12,7 +12,7 @@ public class dead : MonoBehaviour {
 	void Update () {
         if (Input.GetButtonDown("space"))
         {
-            Application.LoadLevel(0);
+            Application.LoadLevel("main_menu");
         }
 
 	

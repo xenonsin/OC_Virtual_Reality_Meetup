@@ -4,7 +4,7 @@ using System.Collections;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    private int _killCount = 0;
+    public int _killCount = 0;
     private float _playerHP;
     private bool isPlaying = true;
 
@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     {
         _killCount += 1;
     }
+
 
     void OnDestroy()
     {

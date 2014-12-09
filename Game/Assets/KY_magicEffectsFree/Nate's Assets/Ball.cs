@@ -15,6 +15,8 @@ public class Ball : MonoBehaviour {
     public float musicStartTime = 0.0f;
 
     public AudioClip explode;
+
+    private bool isQuitting = false;
     
 	
 	// Update is called once per frame
@@ -57,19 +59,27 @@ public class Ball : MonoBehaviour {
 
     public void OnDestroy()
     {
-        //Instantiate particle effect
-        if (explosion)
+        if (!isQuitting)
         {
-            GameObject explosionGO = (GameObject) (Instantiate(explosion, transform.position, Quaternion.identity));
-            if (explode)
+            //Instantiate particle effect
+            if (explosion)
             {
-                SelfDestruct sd = explosionGO.GetComponent<SelfDestruct>();
-                if (sd != null)
+                GameObject explosionGO = (GameObject) (Instantiate(explosion, transform.position, Quaternion.identity));
+                if (explode)
                 {
-                    sd.clipToPlay = explode;
+                    SelfDestruct sd = explosionGO.GetComponent<SelfDestruct>();
+                    if (sd != null)
+                    {
+                        sd.clipToPlay = explode;
+                    }
                 }
             }
         }
+    }
+
+    void OnApplicationQuit()
+    {
+        isQuitting = true;
     }
 
     GameObject FindClosestEnemy()

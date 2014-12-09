@@ -80,6 +80,9 @@ public abstract class Entity : MonoBehaviour
     {
         if (IsDead) return;
         Debug.Log(Name + " has died!");
+        if (GameManager.Instance != null)
+            GameManager.Instance.UpdateKillCount();
+
         IsDead = true;
         if (Died != null)
             Died();

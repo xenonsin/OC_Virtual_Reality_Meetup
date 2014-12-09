@@ -19,19 +19,6 @@ public class Warrior : Entity
         base.Awake();
     }
 
-    public override void OnEnable()
-    {
-        if(GameManager.Instance != null)
-            Died += GameManager.Instance.UpdateKillCount;
-        base.OnEnable();
-    }
-
-    public override void OnDisable()
-    {
-        if (GameManager.Instance != null)
-            Died -= GameManager.Instance.UpdateKillCount;
-        base.OnDisable();
-    }
 
     public override void Hit(float damage)
     {
